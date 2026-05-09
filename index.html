@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Site</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>  
+    <form action="/search-results" method="get">
+    <label for="site-search">Search the site:</label>
+    <input type="search" id="site-search" name="q" placeholder="Type here...">
+    <button type="submit">Search</button>
+    </form>
+
+        <!-- Results Container -->
+    <div class="movie-grid">
+    <!-- Movie Card 1 -->
+    <div class="movie-card">
+        <img src="poster1.jpg" alt="Movie Title" class="movie-poster">
+        <div class="movie-info">
+        <h3>Movie Title</h3>
+        <p>Genre | Year</p>
+        </div>
+    </div>
+
+    <!-- Movie Card 2 -->
+    <div class="movie-card">
+        <img src="poster2.jpg" alt="Movie Title" class="movie-poster">
+        <div class="movie-info">
+        <h3>Movie Title</h3>
+        <p>Genre | Year</p>
+        </div>
+    </div>
+    
+    <!-- Add more .movie-card elements as needed -->
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,4 @@
+#ignore config.js
+#ignore .env
+config.js
+.env

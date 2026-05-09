@@ -37,16 +37,16 @@ movie-explorer/
 2. Go to Settings → API → Create → Developer
 3. Copy your API key
 
-**OpenAI (cheap, ~$1–2/month for learning):**
-1. Sign up at [platform.openai.com](https://platform.openai.com)
-2. Go to API Keys → Create new secret key
+**Groq (free tier, no credit card):**
+1. Sign up at [console.groq.com](https://console.groq.com)
+2. Go to API Keys → Create API Key
 3. Copy your key
 
 ### 2. Add keys to `config.js`
 
 ```js
 const TMDB_KEY = 'your_tmdb_key_here';
-const OPENAI_KEY = 'your_openai_key_here';
+const GROQ_KEY = 'your_groq_key_here';
 ```
 
 > ⚠️ Never push `config.js` to GitHub. Add it to `.gitignore`.
@@ -109,18 +109,27 @@ function saveFavorite(movie) {
 
 ---
 
-## Phase 3 — Ask AI (OpenAI API)
+## Phase 3 — Ask AI (Groq API)
+
+Groq is OpenAI-compatible — same JSON format, just a different URL and key. It's free and extremely fast.
+
+**Available models:**
+| Model | Best for |
+|-------|----------|
+| `llama-3.3-70b-versatile` | Best quality (recommended) |
+| `llama-3.1-8b-instant` | Fastest, great for testing |
+| `mixtral-8x7b-32768` | Longer conversations |
 
 ```js
 async function askAI(movieTitle, overview) {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${OPENAI_KEY}`
+      'Authorization': `Bearer ${GROQ_KEY}`
     },
     body: JSON.stringify({
-      model: 'gpt-4o-mini',
+      model: 'llama-3.3-70b-versatile',   // or 'llama-3.1-8b-instant' for faster testing
       messages: [
         { role: 'system', content: 'You are a fun movie critic. Keep answers under 3 sentences.' },
         { role: 'user', content: `Should I watch "${movieTitle}"? Plot: ${overview}` }
@@ -129,7 +138,7 @@ async function askAI(movieTitle, overview) {
   });
 
   const data = await response.json();
-  return data.choices[0].message.content;   // navigate the nested JSON
+  return data.choices[0].message.content;   // same structure as OpenAI
 }
 ```
 
@@ -179,7 +188,8 @@ Work through these as you build each phase:
 ## Useful Resources
 
 - [TMDB API Docs](https://developer.themoviedb.org/docs)
-- [OpenAI API Docs](https://platform.openai.com/docs)
+- [Groq API Docs](https://console.groq.com/docs/openai)
+- [Groq Available Models](https://console.groq.com/docs/models)
 - [MDN — fetch()](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
 - [MDN — async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises)
 - [MDN — localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
