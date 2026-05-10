@@ -2,3 +2,4 @@
 #ignore .env
 config.js
 .env
+instructions.md
